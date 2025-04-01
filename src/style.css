@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'OPPO Sans';
+  src: url('./assets/fonts/OPPOSans4.0.ttf');
+}
+body,
+html {
+  height: 100%;
+  font-family: 'OPPO Sans';
+}
+#app {
+  height: 100%;
+}
+
+.bg-gradient-primary {
+  background-image: linear-gradient(to right, #8b5cf6, #7c3aed);
+}
+
+.bg-gradient-subtle{
+  background-image:linear-gradient(to bottom right,#f9fafb , rgb(245 243 255 / 0.3))
+}
