@@ -39,18 +39,28 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import('@/pages/profile/examination.vue'),
           },
           {
-            name: 'change-password',
-            path: 'change-password',
-            component: () => import('@/pages/profile/change-password.vue'),
+            name: 'qa',
+            path: 'qa',
+            component: () => import('@/pages/profile/qa.vue'),
           },
           {
             name: 'info',
             path: 'info',
             component: () => import('@/pages/profile/info.vue'),
           },
+          {
+            name: 'change-password',
+            path: 'change-password',
+            component: () => import('@/pages/profile/change-password.vue'),
+          },
         ],
       },
     ],
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/pages/login/index.vue'),
   },
 ]
 
@@ -58,4 +68,19 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+  const { token } = userStore.state
+  if (token) {
+    next()
+  } else {
+    if (to.path === '/login') {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+})
+
 export default router

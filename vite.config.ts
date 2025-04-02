@@ -3,6 +3,7 @@ import UnoCSS from 'unocss/vite'
 import { defineConfig, loadEnv } from 'vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import MotionResolver from 'motion-v/resolver'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig(({ mode }) => {
@@ -20,6 +21,7 @@ export default defineConfig(({ mode }) => {
       Components({
         dts: 'types/dts/components.d.ts',
         dirs: ['src/components'],
+        // resolvers: [MotionResolver()],
       }),
     ],
     resolve: {

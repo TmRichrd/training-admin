@@ -71,6 +71,11 @@ const routers = ref([
         icon: "i-lucide-file-check"
       },
       {
+        path: "/profile/qa",
+        name: "我的答疑",
+        icon: "i-lucide-message-square"
+      },
+      {
         path: "/profile/info",
         name: "我的信息",
         icon: "i-lucide-info"
