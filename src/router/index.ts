@@ -55,6 +55,11 @@ const routes: Array<RouteRecordRaw> = [
           },
         ],
       },
+      {
+        name: 'exam',
+        path: '/exam/:id',
+        component: () => import('@/pages/exam/index.vue'),
+      },
     ],
   },
   {

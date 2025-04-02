@@ -39,7 +39,7 @@
           </div>
           <div class="flex justify-between items-center">
             <div class="text-sm text-blue-700"><span class="font-medium">继续完成考核</span></div>
-            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors text-white h-10 px-4 py-2 bg-blue-600 hover:bg-blue-700">
+            <button @click="router.push('/exam/1')" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors text-white h-10 px-4 py-2 bg-blue-600 hover:bg-blue-700">
               继续考核
               <div class="i-lucide-arrow-right ml-2 h-4 w-4"></div>
             </button>
@@ -78,7 +78,7 @@
           </div>
           <div class="flex justify-between items-center">
             <div class="text-sm text-gray-500"><span class="font-medium">准备好了吗？开始考核吧</span></div>
-            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors text-white h-10 px-4 py-2 bg-purple-600 hover:bg-purple-700">
+            <button @click="router.push('/exam/1')" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors text-white h-10 px-4 py-2 bg-purple-600 hover:bg-purple-700">
               开始考核
               <div class="i-lucide-arrow-right ml-2 h-4 w-4"></div>
             </button>
@@ -173,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-
+const router = useRouter()
 </script>
 
 <style scoped>
