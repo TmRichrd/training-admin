@@ -8,18 +8,14 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Header: typeof import('./../../src/components/layout/header.vue')['default']
     Layout: typeof import('./../../src/components/layout/layout.vue')['default']
-    Layoutheader: typeof import('./../../src/components/layout/layoutheader.vue')['default']
     LayoutHeader: typeof import('./../../src/components/layout/layout-header.vue')['default']
     LayoutMain: typeof import('./../../src/components/layout/layout-main.vue')['default']
     LayoutMenuItem: typeof import('./../../src/components/layout/layout-menu-item.vue')['default']
     LayoutMenus: typeof import('./../../src/components/layout/layout-menus.vue')['default']
     LayoutSidebar: typeof import('./../../src/components/layout/layout-sidebar.vue')['default']
     Loading: typeof import('./../../src/components/Loading/index.vue')['default']
-    Main: typeof import('./../../src/components/layout/main.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Sidebar: typeof import('./../../src/components/layout/sidebar.vue')['default']
   }
 }
