@@ -1,7 +1,7 @@
 <template>
   <div class="p-6">
     <div class="mb-8">
-      <h1 class="text-2xl font-medium mb-2">欢迎回来，{{ state.name }}</h1>
+      <h1 class="text-2xl font-medium mb-2">欢迎回来，{{ shortenHash(state.name || '') }}</h1>
       <p class="text-gray-500">继续您的学习之旅，探索更多精彩内容</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -61,7 +61,7 @@
             class="rounded-lg border text-card-foreground shadow-sm hover:shadow-md transition-shadow cursor-pointer bg-white border-gray-100">
             <div class="flex items-center p-6">
               <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" :class="item.color">
-                <div class="h-6 w-6" :class="item.icon"></div>
+                <div class="h-6 w-6" :class="item.iconClass"></div>
               </div>
               <span class="text-lg font-medium">{{ item.name }}</span>
             </div>
@@ -105,67 +105,83 @@
 <script setup lang="ts">
 const userStore = useUserStore()
 const { state } = userStore
-const topics = ref([
-  {
-    id: "medical-regulations",
-    name: "医疗法规",
-    icon: 'i-lucide-file-text',
-    color: "bg-purple-100 text-purple-600",
-  },
-  {
-    id: "drug-knowledge",
-    name: "药品知识",
-    icon: 'i-lucide-microscope',
-    color: "bg-orange-100 text-orange-600",
-  },
-  {
-    id: "regulatory-system",
-    name: "规章制度",
-    icon: 'i-lucide-book-open',
-    color: "bg-blue-100 text-blue-600",
-  },
-  {
-    id: "topic-four",
-    name: "主题四",
-    icon: 'i-lucide-lightbulb',
-    color: "bg-green-100 text-green-600",
-  },
-  {
-    id: "topic-five",
-    name: "主题五",
-    icon: 'i-lucide-pen-tool',
-    color: "bg-pink-100 text-pink-600",
-  },
-  {
-    id: "topic-six",
-    name: "主题六",
-    icon: 'i-lucide-stethoscope',
-    color: "bg-amber-100 text-amber-600",
-  },
-])
-const popularCourses = ref([
-  {
-    id: 1,
-    title: "医疗法规基础知识",
-    category: "医疗法规",
-    duration: "2小时30分钟",
-    progress: 75,
-  },
-  {
-    id: 2,
-    title: "药品管理条例解析",
-    category: "药品知识",
-    duration: "1小时45分钟",
-    progress: 30,
-  },
-  {
-    id: 3,
-    title: "医院规章制度详解",
-    category: "规章制度",
-    duration: "3小时15分钟",
-    progress: 0,
-  },
-])
+import {shortenHash} from '@/utils'
+import { getTopCategories } from '@/api'
+
+interface Topic {
+  id: string
+  name: string
+  description: string
+  icon: string
+  parent_id: string
+  parent: null
+  direct_childs: any[]
+  created_at: number
+  updated_at: number
+  color?: string
+  iconClass?: string
+}
+
+interface PopularCourse {
+  id: string
+  title: string
+  category: string
+  duration: string
+  progress: number
+}
+
+interface ApiResponse {
+  code: number
+  message: string
+  data: {
+    total: number
+    total_page: number
+    pagesize: number
+    list: Topic[]
+  }
+}
+
+const topics = ref<Topic[]>([])
+const popularCourses = ref<PopularCourse[]>([])
+
+// Mock color and icon classes for topics
+const colorClasses = [
+  'bg-blue-100 text-blue-600',
+  'bg-purple-100 text-purple-600',
+  'bg-green-100 text-green-600',
+  'bg-orange-100 text-orange-600',
+  'bg-red-100 text-red-600',
+  'bg-yellow-100 text-yellow-600'
+]
+
+const iconClasses = [
+  'i-lucide-book',
+  'i-lucide-graduation-cap',
+  'i-lucide-brain',
+  'i-lucide-lightbulb',
+  'i-lucide-target',
+  'i-lucide-award'
+]
+
+onMounted(async () => {
+  try {
+    const response = await getTopCategories({
+      page: 1,
+      pagesize: 20
+    }) as ApiResponse
+    
+    if (response.code === 0) {
+      // Add mock color and icon classes to each topic
+      topics.value = response.data.list.map((topic, index) => ({
+        ...topic,
+        color: colorClasses[index % colorClasses.length],
+        iconClass: iconClasses[index % iconClasses.length]
+      }))
+    }
+  } catch (error) {
+    console.error('Failed to fetch topics:', error)
+  }
+})
 </script>
 
 <style scoped></style>

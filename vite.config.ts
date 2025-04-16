@@ -41,6 +41,13 @@ export default defineConfig(({ mode }) => {
     server: {
       host: '0.0.0.0',
       port: 3000,
+      proxy: {
+        '/apis': {
+          target: "https://train.doylurs.chat",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/apis/, ''),
+        },
+      },
     },
   }
 })

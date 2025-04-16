@@ -74,18 +74,18 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  const userStore = useUserStore()
-  const { token } = userStore.state
-  if (token) {
-    next()
-  } else {
-    if (to.path === '/login') {
-      next()
-    } else {
-      next('/login')
-    }
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   const userStore = useUserStore()
+//   const { token } = userStore.state
+//   if (token) {
+//     next()
+//   } else {
+//     if (to.path === '/login') {
+//       next()
+//     } else {
+//       next('/login')
+//     }
+//   }
+// })
 
 export default router

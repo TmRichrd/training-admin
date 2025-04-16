@@ -17,3 +17,9 @@ export const generateMockUserData = () => {
     email: email,
   }
 }
+export const shortenHash = (hash: string, length: number = 6) => {
+  if (!hash) return ''
+  const start = hash.slice(0, length)
+  const end = hash.slice(-length)
+  return `${start}...${end}`
+}

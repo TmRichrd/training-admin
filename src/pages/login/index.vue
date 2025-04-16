@@ -75,15 +75,21 @@
 
 <script setup lang="ts">
 import { motion } from "motion-v"
-import { generateMockUserData } from "@/utils";
 import { useUserStore } from "@/store/userStore";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import { loginWithDevice } from "@/api";
 const router = useRouter()
 const userStore = useUserStore()
-const login = ()=>{
-  const user = generateMockUserData()
-  userStore.change(user)
+const login = async ()=>{
+  const fpPromise = FingerprintJS.load()
+  const fp = await fpPromise
+  const result = await fp.get()
+  const deviceId = result.visitorId
+  const res= await loginWithDevice(deviceId)
+  userStore.change(res.data)
   router.push('/')
 }
+
 </script>
 
 <style scoped></style>

@@ -27,9 +27,9 @@
       <div
         class="justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 flex items-center gap-2 rounded-full">
         <span class="relative flex shrink-0 overflow-hidden rounded-full h-8 w-8 border border-purple-200">
-          <img :src="state.avatar" class="aspect-square h-full w-full" />
+          <img :src="state.avatar ? state.avatar : avatar" class="aspect-square h-full w-full" />
         </span>
-        <span class="hidden md:inline-block">{{ state.name }}</span>
+        <span class="hidden md:inline-block">{{ shortenHash(state.name) }}</span>
         <div class="i-lucide-chevron-down h-4 w-4 hidden md:inline-block"></div>
       </div>
     </div>
@@ -39,6 +39,9 @@
 <script setup lang="ts">
 const userStore = useUserStore()
 const { state } = userStore
+import { faker } from '@faker-js/faker'
+import { shortenHash } from '@/utils'
+const avatar = faker.image.avatar()
 </script>
 
 <style scoped></style>

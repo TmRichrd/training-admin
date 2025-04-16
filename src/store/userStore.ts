@@ -1,3 +1,5 @@
+import router from "../router"
+
 export interface userInfoProps {
   token: string
   user_id: string
@@ -56,7 +58,21 @@ export const useUserStore = defineStore(
     const setAvatar = (avatar: string) => {
       state.avatar = avatar
     }
-    return { state, change, setPhone, setEmail, setName, setBio, setAvatar }
+    const logout = () => {
+      state.token = ''
+      state.user_id = ''
+      state.invite_code = ''
+      state.invite_link = ''
+      state.parent_user_id = ''
+      state.name = undefined
+      state.avatar = ''
+      state.is_agent = false
+      state.bio = ''
+      state.phone = ''
+      state.email = ''
+      router.push('/')
+    }
+    return { state, change, setPhone, setEmail, setName, setBio, setAvatar, logout }
   },
   {
     persist: true,
